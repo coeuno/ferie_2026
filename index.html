@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chi c'è in baita</title>
+<title>Cedroni state a casa!</title>
 <style>
   :root{
     --navy:#0a2240;--navy-2:#16335c;--navy-3:#22467a;
@@ -52,6 +52,23 @@
 
   .iam{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
   .iam label{font-weight:700;color:var(--navy);font-size:14px}
+  /* BOX SCELTA FAMIGLIA — molto evidente */
+  .iam-box{background:linear-gradient(135deg,var(--navy),var(--navy-3));border-radius:14px;padding:18px;margin-bottom:6px;box-shadow:0 14px 30px -16px rgba(10,34,64,.6);border:2px solid var(--gold)}
+  .iam-box-head{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+  .iam-step{flex:none;width:34px;height:34px;border-radius:50%;background:var(--gold);color:var(--navy);font-weight:900;font-size:18px;display:flex;align-items:center;justify-content:center}
+  .iam-title{color:#fff;font-weight:800;font-size:20px;line-height:1.1}
+  .iam-desc{color:rgba(255,255,255,.8);font-size:13px}
+  .iam-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:rgba(255,255,255,.08);padding:12px;border-radius:10px}
+  .iam-row label{color:var(--gold);font-weight:700;font-size:14px}
+  .iam-row select{flex:1;min-width:160px;font-weight:600}
+  .iam-hint{color:var(--gold);font-weight:600;font-size:13px;margin:12px 2px 0;text-align:center}
+  .iam-box .panel{border-top:1px solid rgba(255,255,255,.2)}
+  .iam-box .panel .hint{color:rgba(255,255,255,.75)}
+  .iam-box .field label{color:var(--gold)}
+  .iam-box .memberpick label{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.25);color:#fff}
+  .iam-box .scope{background:rgba(255,255,255,.12)}
+  .iam-box .scope button{color:rgba(255,255,255,.8)}
+  .iam-box .scope button.active{background:var(--gold);color:var(--navy)}
   select,input[type=text],input[type=date]{font-family:inherit;font-size:14px;padding:10px 12px;border:1px solid var(--line-2);border-radius:8px;background:#fff;color:var(--ink)}
   select:focus,input:focus{outline:2px solid var(--gold);outline-offset:1px;border-color:var(--gold-2)}
 
@@ -62,30 +79,35 @@
   .legend{font-size:12px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap;margin:14px 2px 10px;align-items:center}
   .legend i{display:inline-block;width:13px;height:13px;border-radius:3px;margin-right:5px;vertical-align:-2px}
   .grid-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
-  .xgrid{border-collapse:collapse;font-size:12px;min-width:max-content}
-  .xgrid th,.xgrid td{border:1px solid var(--line);padding:0;text-align:center}
-  .xgrid .fam-h{writing-mode:vertical-rl;transform:rotate(180deg);font-weight:800;color:#fff;font-size:12px;letter-spacing:.03em;padding:6px 3px;white-space:nowrap;min-width:26px}
-  .xgrid .name-c{position:sticky;left:26px;background:#fff;text-align:left;padding:5px 10px;font-weight:600;white-space:nowrap;min-width:120px;z-index:2;border-left:0}
-  .xgrid .fam-cell{position:sticky;left:0;z-index:3}
+  .xgrid{border-collapse:separate;border-spacing:0;font-size:12px;min-width:max-content}
+  .xgrid th,.xgrid td{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:0;text-align:center}
+  /* colonna classe (famiglia/singolo) — fissa */
+  .xgrid .fam-cell{position:sticky;left:0;z-index:5;width:28px;min-width:28px}
+  .xgrid .fam-h{writing-mode:vertical-rl;transform:rotate(180deg);font-weight:800;color:#fff;font-size:11px;letter-spacing:.03em;padding:6px 4px;white-space:nowrap}
   .xgrid .single-cell{background:#7a8699}
-  .xgrid thead th{background:var(--navy);color:#fff;font-weight:700;height:30px;min-width:24px;width:24px;font-size:11px}
+  /* colonne nome/cognome/soprannome — fisse */
+  .xgrid .c-nome{position:sticky;left:28px;z-index:5;background:#fff;text-align:left;padding:6px 8px;font-weight:700;white-space:nowrap;min-width:84px}
+  .xgrid .c-cognome{position:sticky;left:112px;z-index:5;background:#fff;text-align:left;padding:6px 8px;white-space:nowrap;min-width:84px;color:var(--ink)}
+  .xgrid .c-sopra{position:sticky;left:196px;z-index:5;background:#fff;text-align:left;padding:6px 8px;white-space:nowrap;min-width:70px;color:var(--muted);font-style:italic;
+    border-right:3px solid var(--navy)} /* stacco netto: nasconde ciò che scorre dietro */
+  /* header */
+  .xgrid thead th{background:var(--navy);color:#fff;font-weight:700;height:30px;min-width:26px;width:26px;font-size:11px}
   .xgrid thead th.we{background:var(--navy-3)}
-  .xgrid thead .corner{position:sticky;left:0;z-index:4;background:var(--navy);min-width:146px;text-align:left;padding-left:10px;letter-spacing:.04em}
-  .xgrid td.day{width:24px;height:26px}
+  .xgrid thead .corner{position:sticky;z-index:6;background:var(--navy);text-align:left;padding-left:10px;letter-spacing:.04em}
+  .xgrid thead .corner.c-nome,.xgrid thead .corner.c-cognome,.xgrid thead .corner.c-sopra{background:var(--navy);color:#fff;font-weight:700}
+  .xgrid thead .corner.fam-cell{background:var(--navy)}
+  .xgrid td.day{width:26px;min-width:26px;height:28px}
   .xgrid td.on{background:var(--present)}
   .xgrid td.off{background:var(--absent)}
   .xgrid td.we.off{background:#cfd6df}
   /* bordo perimetrale attorno a ogni gruppo */
-  .xgrid .grp-first td{border-top:2px solid var(--navy)}
-  .xgrid .grp-first .fam-cell{border-top:2px solid var(--navy)}
-  .xgrid .grp-last td{border-bottom:2px solid var(--navy)}
-  .xgrid .grp-left{border-left:2px solid var(--navy)}
-  .xgrid .name-c{border-right:1px solid var(--line)}
+  .xgrid .grp-first>td,.xgrid .grp-first>.fam-cell{border-top:2px solid var(--navy)}
+  .xgrid .grp-last>td{border-bottom:2px solid var(--navy)}
   .xgrid td.grp-right{border-right:2px solid var(--navy)}
-  .hist-row td{height:38px;vertical-align:bottom;padding:0;border:1px solid var(--line);position:relative}
+  .hist-row td{height:38px;vertical-align:bottom;padding:0;position:relative}
   .hist-bar{background:linear-gradient(var(--gold),var(--gold-2));width:100%;position:absolute;bottom:0;left:0;border-radius:2px 2px 0 0}
   .hist-num{position:absolute;top:1px;left:0;right:0;font-size:9px;color:var(--navy);font-weight:700}
-  .hist-label{position:sticky;left:0;background:#fff;text-align:right;padding-right:8px;font-size:10px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.04em;z-index:2}
+  .hist-label{position:sticky;left:0;z-index:5;background:#fff;text-align:left;padding:0 8px;font-size:10px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.04em;border-right:3px solid var(--navy)}
 
   .peak{display:flex;align-items:center;gap:10px;background:linear-gradient(120deg,var(--navy),var(--navy-3));color:#fff;border-radius:10px;padding:12px 16px;margin:14px 0;font-size:14px}
   .peak .big{font-size:22px;font-weight:800;color:var(--gold)}
@@ -151,6 +173,16 @@
     .scope button{flex:1}
     .btn{padding:11px 14px}
     .field input{font-size:16px}
+    /* griglia compatta: colonne nome più strette, soprannome nascosto */
+    .xgrid{font-size:11px}
+    .xgrid .c-nome{min-width:62px;left:24px;padding:5px 5px}
+    .xgrid .c-cognome{min-width:62px;left:86px;padding:5px 5px}
+    .xgrid .c-sopra{display:none}
+    .xgrid thead .corner.c-sopra{display:none}
+    .xgrid .c-cognome{border-right:3px solid var(--navy)}
+    .xgrid .fam-cell{width:24px;min-width:24px}
+    .xgrid td.day{width:22px;min-width:22px;height:26px}
+    .xgrid thead th{min-width:22px;width:22px}
   }
 </style>
 </head>
@@ -193,7 +225,7 @@ const STORAGE_KEY="baita_presenze_v4";
 const BANNER_KEY="baita_banner_v4";
 
 const DEFAULT_DATA={
-  meta:{titolo:"Ferie in baita 2026", sub:"Scegli il tuo nome, segna arrivo e partenza. Tutti vedete lo stesso calendario."},
+  meta:{titolo:"Cedroni state a casa!", sub:"Scegli il tuo nome, segna arrivo e partenza. Tutti vedete lo stesso calendario."},
   groups:[
     {id:"g1",nome:"Famiglia Rosa",single:false,members:[
       {id:"m1",nome:"Michele",cognome:"Rosa",soprannome:"",arrivo:"",partenza:"",casa:""},
@@ -350,6 +382,33 @@ function dayOf(s){if(!s)return null;const d=parseD(s);if(d.getFullYear()!==YEAR|
 function isWE(day){const d=new Date(YEAR,MONTH,day);return d.getDay()===0||d.getDay()===6;}
 function presentOn(m,day){const a=dayOf(m.arrivo),p=dayOf(m.partenza);if(a==null||p==null)return false;return day>=a&&day<=p;}
 function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),1900);}
+
+// ---- feedback aptico + sonoro ----
+function lsGet(k,def){try{const v=localStorage.getItem(k);return v===null?def:v;}catch(e){return def;}}
+function lsSet(k,v){try{localStorage.setItem(k,v);}catch(e){}}
+let hapticOn=(lsGet("baita_haptic","1")!=="0"); // default acceso
+let soundOn=(lsGet("baita_sound","0")==="1");   // default spento
+let audioCtx=null;
+function feedback(kind){
+  if(hapticOn && navigator.vibrate){
+    navigator.vibrate(kind==="ok"?[12]:kind==="big"?[18,30,18]:8);
+  }
+  if(soundOn){
+    try{
+      audioCtx=audioCtx||new (window.AudioContext||window.webkitAudioContext)();
+      const o=audioCtx.createOscillator(),g=audioCtx.createGain();
+      const freq=kind==="ok"?660:kind==="big"?520:440;
+      o.frequency.value=freq;o.type="sine";
+      g.gain.setValueAtTime(0.0001,audioCtx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.12,audioCtx.currentTime+0.01);
+      g.gain.exponentialRampToValueAtTime(0.0001,audioCtx.currentTime+0.12);
+      o.connect(g);g.connect(audioCtx.destination);
+      o.start();o.stop(audioCtx.currentTime+0.13);
+    }catch(e){}
+  }
+}
+function toggleHaptic(){hapticOn=!hapticOn;lsSet("baita_haptic",hapticOn?"1":"0");feedback("tap");render();}
+function toggleSound(){soundOn=!soundOn;lsSet("baita_sound",soundOn?"1":"0");if(soundOn)feedback("ok");render();}
 function setSync(s){syncState=s;const el=document.getElementById("syncBadge");if(el)el.outerHTML=syncBadge();}
 
 function dailyCounts(){const c=[];for(let d=1;d<=DAYS_IN_MONTH;d++)c[d]=allMembers().filter(m=>presentOn(m,d)).length;return c;}
@@ -389,19 +448,29 @@ function topBar(){
     </div>
     <div class="right-tools">
       ${syncBadge()}
-      <button class="btn ghost tiny" onclick="exportCSV()">Esporta CSV</button>
-      ${isAdmin?`<button class="btn ghost tiny" onclick="logoutAdmin()">Esci</button>`:`<button class="btn ghost tiny" onclick="openAdmin()">Organizzatore</button>`}
+      <button class="btn ghost tiny" title="vibrazione" onclick="toggleHaptic()">${hapticOn?'📳':'📴'}</button>
+      <button class="btn ghost tiny" title="suono" onclick="toggleSound()">${soundOn?'🔔':'🔕'}</button>
+      ${isAdmin?`<button class="btn ghost tiny" onclick="exportCSV()">Esporta CSV</button><button class="btn ghost tiny" onclick="logoutAdmin()">Esci</button>`:`<button class="btn ghost tiny" onclick="openAdmin()">Organizzatore</button>`}
     </div>
   </div>`;
 }
 
 function iamCard(){
   const gopts=DATA.groups.map(g=>`<option value="${g.id}" ${selectedGroup===g.id?'selected':''}>${g.nome}</option>`).join("");
-  return `<div class="card"><div class="pad">
-    <div class="iam"><label>La mia famiglia / gruppo</label>
-      <select id="pickGroup"><option value="">— scegli —</option>${gopts}</select></div>
-    ${selectedGroup?scopeAndPanel():'<p class="hint" style="margin:12px 0 0">Seleziona il tuo gruppo per inserire le date.</p>'}
-  </div></div>`;
+  return `<div class="iam-box">
+    <div class="iam-box-head">
+      <span class="iam-step">1</span>
+      <div>
+        <div class="iam-title">Chi sei?</div>
+        <div class="iam-desc">Scegli la tua famiglia o il tuo nome per inserire le date</div>
+      </div>
+    </div>
+    <div class="iam-row">
+      <label for="pickGroup">La mia famiglia / gruppo</label>
+      <select id="pickGroup"><option value="">— scegli —</option>${gopts}</select>
+    </div>
+    ${selectedGroup?scopeAndPanel():'<p class="iam-hint">↑ Tocca qui sopra e seleziona il tuo gruppo</p>'}
+  </div>`;
 }
 function scopeAndPanel(){
   const g=groupById(selectedGroup);if(!g)return"";
@@ -454,14 +523,14 @@ function gridView(){
   const maxCount=Math.max(1,...counts.slice(1));
   const hasAnyPresence=counts.slice(1).some(c=>c>0);
 
-  // header: la cella NOME copre le 2 colonne di sinistra (famiglia + nome)
-  let head=`<th class="corner" colspan="2">NOME</th>`;
+  // header: 4 colonne fisse (classe + nome + cognome + soprannome), poi i giorni
+  let head=`<th class="corner fam-cell"></th><th class="corner c-nome">NOME</th><th class="corner c-cognome">COGNOME</th><th class="corner c-sopra">SOPRANNOME</th>`;
   for(let d=1;d<=DAYS_IN_MONTH;d++){head+=`<th class="${isWE(d)?'we':''}">${d}</th>`;}
 
   // istogramma: solo se c'è almeno una presenza
   let histRow="";
   if(hasAnyPresence){
-    let hist=`<td class="hist-label" colspan="2">presenze per giorno →</td>`;
+    let hist=`<td class="hist-label" colspan="4">presenze per giorno →</td>`;
     for(let d=1;d<=DAYS_IN_MONTH;d++){
       const h=Math.round((counts[d]/maxCount)*32);
       hist+=`<td><div class="hist-num">${counts[d]||''}</div><div class="hist-bar" style="height:${h}px"></div></td>`;
@@ -478,12 +547,12 @@ function gridView(){
       let r="";
       if(i===0){
         if(g.single){
-          r+=`<td class="fam-cell single-cell grp-left" rowspan="${rows}"><div class="fam-h">Singolo</div></td>`;
+          r+=`<td class="fam-cell single-cell" rowspan="${rows}"><div class="fam-h">Singolo</div></td>`;
         }else{
-          r+=`<td class="fam-cell grp-left" rowspan="${rows}" style="background:${famColor(g.id)}"><div class="fam-h">${g.nome.replace(/^Famiglia\s+/i,'')}</div></td>`;
+          r+=`<td class="fam-cell" rowspan="${rows}" style="background:${famColor(g.id)}"><div class="fam-h">${g.nome.replace(/^Famiglia\s+/i,'')}</div></td>`;
         }
       }
-      r+=`<td class="name-c">${fullName(m)}</td>`;
+      r+=`<td class="c-nome">${m.nome||'—'}</td><td class="c-cognome">${m.cognome||''}</td><td class="c-sopra">${m.soprannome||''}</td>`;
       for(let d=1;d<=DAYS_IN_MONTH;d++){
         const on=presentOn(m,d);
         const isLastDay=(d===DAYS_IN_MONTH);
@@ -670,6 +739,15 @@ function exportCSV(){
   const blob=new Blob(["\ufeff"+csv],{type:"text/csv;charset=utf-8"});
   const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="presenze-baita.csv";a.click();
 }
+
+// feedback al tocco di pulsanti e select (una sola registrazione globale)
+document.addEventListener("click",function(e){
+  const el=e.target.closest("button,.seg button,.chip,.scope button");
+  if(el){ const big=el.classList.contains("primary")||el.classList.contains("gold"); feedback(big?"ok":"tap"); }
+},true);
+document.addEventListener("change",function(e){
+  if(e.target.matches("select,input[type=date]")) feedback("tap");
+},true);
 
 (async()=>{
   try{
