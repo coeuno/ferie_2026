@@ -52,23 +52,23 @@
 
   .iam{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
   .iam label{font-weight:700;color:var(--navy);font-size:14px}
-  /* BOX SCELTA FAMIGLIA — molto evidente */
-  .iam-box{background:linear-gradient(135deg,var(--navy),var(--navy-3));border-radius:14px;padding:18px;margin-bottom:6px;box-shadow:0 14px 30px -16px rgba(10,34,64,.6);border:2px solid var(--gold)}
+  /* BOX SCELTA FAMIGLIA — molto evidente, fondo giallo testo blu */
+  .iam-box{background:linear-gradient(135deg,var(--gold),var(--gold-2));border-radius:14px;padding:18px;margin-bottom:6px;box-shadow:0 14px 30px -16px rgba(230,168,0,.6);border:2px solid var(--navy)}
   .iam-box-head{display:flex;align-items:center;gap:14px;margin-bottom:14px}
-  .iam-step{flex:none;width:34px;height:34px;border-radius:50%;background:var(--gold);color:var(--navy);font-weight:900;font-size:18px;display:flex;align-items:center;justify-content:center}
-  .iam-title{color:#fff;font-weight:800;font-size:20px;line-height:1.1}
-  .iam-desc{color:rgba(255,255,255,.8);font-size:13px}
-  .iam-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:rgba(255,255,255,.08);padding:12px;border-radius:10px}
-  .iam-row label{color:var(--gold);font-weight:700;font-size:14px}
+  .iam-step{flex:none;width:34px;height:34px;border-radius:50%;background:var(--navy);color:var(--gold);font-weight:900;font-size:18px;display:flex;align-items:center;justify-content:center}
+  .iam-title{color:var(--navy);font-weight:800;font-size:20px;line-height:1.1}
+  .iam-desc{color:rgba(10,34,64,.78);font-size:13px}
+  .iam-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:rgba(255,255,255,.45);padding:12px;border-radius:10px}
+  .iam-row label{color:var(--navy);font-weight:800;font-size:14px}
   .iam-row select{flex:1;min-width:160px;font-weight:600}
-  .iam-hint{color:var(--gold);font-weight:600;font-size:13px;margin:12px 2px 0;text-align:center}
-  .iam-box .panel{border-top:1px solid rgba(255,255,255,.2)}
-  .iam-box .panel .hint{color:rgba(255,255,255,.75)}
-  .iam-box .field label{color:var(--gold)}
-  .iam-box .memberpick label{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.25);color:#fff}
-  .iam-box .scope{background:rgba(255,255,255,.12)}
-  .iam-box .scope button{color:rgba(255,255,255,.8)}
-  .iam-box .scope button.active{background:var(--gold);color:var(--navy)}
+  .iam-hint{color:var(--navy);font-weight:700;font-size:13px;margin:12px 2px 0;text-align:center}
+  .iam-box .panel{border-top:1px solid rgba(10,34,64,.25)}
+  .iam-box .panel .hint{color:rgba(10,34,64,.7)}
+  .iam-box .field label{color:var(--navy)}
+  .iam-box .memberpick label{background:rgba(255,255,255,.5);border-color:rgba(10,34,64,.25);color:var(--navy)}
+  .iam-box .scope{background:rgba(255,255,255,.45)}
+  .iam-box .scope button{color:rgba(10,34,64,.7)}
+  .iam-box .scope button.active{background:var(--navy);color:var(--gold)}
   select,input[type=text],input[type=date]{font-family:inherit;font-size:14px;padding:10px 12px;border:1px solid var(--line-2);border-radius:8px;background:#fff;color:var(--ink)}
   select:focus,input:focus{outline:2px solid var(--gold);outline-offset:1px;border-color:var(--gold-2)}
 
@@ -102,9 +102,9 @@
   .xgrid td.off{background:var(--absent)}
   .xgrid td.we.off{background:#cfd6df}
   /* bordo perimetrale attorno a ogni gruppo */
-  .xgrid .grp-first>td,.xgrid .grp-first>.fam-cell{border-top:1.5px solid var(--navy)}
-  .xgrid .grp-last>td{border-bottom:1.5px solid var(--navy)}
-  .xgrid td.grp-right{border-right:1.5px solid var(--navy)}
+  .xgrid .grp-first>td,.xgrid .grp-first>.fam-cell{border-top:1px solid var(--navy)}
+  .xgrid .grp-last>td{border-bottom:1px solid var(--navy)}
+  .xgrid td.grp-right{border-right:1px solid var(--navy)}
   .hist-row td{height:38px;vertical-align:bottom;padding:0;position:relative}
   .hist-bar{width:100%;position:absolute;bottom:0;left:0;border-radius:2px 2px 0 0}
   .hist-num{position:absolute;top:1px;left:0;right:0;font-size:9px;color:var(--navy);font-weight:700}
@@ -467,7 +467,7 @@ function iamCard(){
       </div>
     </div>
     <div class="iam-row">
-      <label for="pickGroup">La mia famiglia / gruppo</label>
+      <label for="pickGroup">Famiglia / Nome</label>
       <select id="pickGroup"><option value="">— scegli —</option>${gopts}</select>
     </div>
     ${selectedGroup?scopeAndPanel():'<p class="iam-hint">↑ Tocca qui sopra e seleziona il tuo gruppo</p>'}
