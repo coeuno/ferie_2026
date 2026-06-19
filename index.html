@@ -177,7 +177,7 @@ const ADMIN_CODE="baita2026";
 
 // >>> INCOLLA QUI l'URL del tuo Apps Script (finisce con /exec) <<<
 // Finché resta vuoto, l'app funziona in locale sul singolo dispositivo.
-const SHEET_API_URL="https://script.google.com/macros/s/AKfycbwHEKlle7YrXAUR5qp660g0UVGOGenlBQl8aUvLqtuMTrxXeaPVUzVOpQ0wg61MSMB8/exec";
+const SHEET_API_URL="https://script.google.com/macros/s/AKfycbx2_1njEtPHC36fKNhzRpFNf22EIp8nkDQripp-tyCDaF_Eq2oAIsTr8oCtyt15mUuORA/exec";
 
 const YEAR=2026, MONTH=7;
 const DAYS_IN_MONTH=new Date(YEAR,MONTH+1,0).getDate();
@@ -217,30 +217,48 @@ const REMOTE = !!SHEET_API_URL;
 // ===================================================================
 // STORAGE (remote = Google Sheet, fallback = window.storage locale)
 // ===================================================================
+const HAS_LOCAL = (typeof window!=="undefined" && window.storage && typeof window.storage.get==="function");
+
 async function load(){
   if(REMOTE){
     try{
       const d=await remoteGet();
-      if(d&&d.groups){DATA=d.data||d;} // tollerante al formato
-      if(d&&d.payload){DATA=d.payload;}
-      if(!DATA||!DATA.groups){DATA=structuredClone(DEFAULT_DATA);await remotePut();}
+      // il foglio può rispondere {payload:..., banner:...} oppure direttamente {groups:...}
+      let incoming=null;
+      if(d){
+        if(d.payload && d.payload.groups) incoming=d.payload;
+        else if(d.groups) incoming=d;
+      }
+      DATA = incoming ? incoming : structuredClone(DEFAULT_DATA);
+      if(d && typeof d.banner==="string" && d.banner) BANNER=d.banner;
+      // se il foglio era vuoto, scrivo i dati di default (senza far fallire l'avvio)
+      if(!incoming){ try{ await remotePut(); }catch(e){} }
       syncState="ok";
-    }catch(e){ syncState="err"; loadLocalFallback(); }
+    }catch(e){
+      // foglio non raggiungibile: parto comunque con i dati di esempio
+      DATA=structuredClone(DEFAULT_DATA);
+      syncState="err";
+    }
   }else{
     await loadLocal();
   }
+  if(!DATA) DATA=structuredClone(DEFAULT_DATA);
   if(!DATA.meta) DATA.meta=structuredClone(DEFAULT_DATA.meta);
   if(!DATA.meta.clou) DATA.meta.clou=[];
-  await loadBanner();
+  if(!REMOTE) await loadBanner();
 }
 async function loadLocal(){
-  try{const r=await window.storage.get(STORAGE_KEY,true);if(r&&r.value)DATA=JSON.parse(r.value);}catch(e){}
-  if(!DATA){DATA=structuredClone(DEFAULT_DATA);await window.storage.set(STORAGE_KEY,JSON.stringify(DATA),true).catch(()=>{});}
+  if(HAS_LOCAL){
+    try{const r=await window.storage.get(STORAGE_KEY,true);if(r&&r.value)DATA=JSON.parse(r.value);}catch(e){}
+    if(!DATA){DATA=structuredClone(DEFAULT_DATA);try{await window.storage.set(STORAGE_KEY,JSON.stringify(DATA),true);}catch(e){}}
+  }else{
+    // GitHub Pages senza window.storage e senza foglio: solo in memoria
+    if(!DATA) DATA=structuredClone(DEFAULT_DATA);
+  }
   syncState="local";
 }
-function loadLocalFallback(){ DATA=structuredClone(DEFAULT_DATA); }
 async function loadBanner(){
-  if(REMOTE&&DATA&&DATA.banner){BANNER=DATA.banner;return;}
+  if(!HAS_LOCAL) return;
   try{const b=await window.storage.get(BANNER_KEY,true);if(b&&b.value)BANNER=b.value;}catch(e){}
 }
 
@@ -253,7 +271,7 @@ function persist(){
       try{ await remotePut(); setSync("ok"); }
       catch(e){ setSync("err"); }
     },600);
-  }else{
+  }else if(HAS_LOCAL){
     window.storage.set(STORAGE_KEY,JSON.stringify(DATA),true).catch(()=>{});
   }
 }
@@ -602,7 +620,21 @@ function exportCSV(){
   const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="presenze-baita.csv";a.click();
 }
 
-(async()=>{await load();render();startPolling();})();
+(async()=>{
+  try{
+    await load();
+    render();
+    startPolling();
+  }catch(e){
+    // ultimo paracadute: non lasciare mai la pagina bianca
+    if(!DATA) DATA=structuredClone(DEFAULT_DATA);
+    try{ render(); startPolling(); }
+    catch(e2){
+      document.getElementById("app").innerHTML=
+        '<div class="card"><div class="pad">Si è verificato un problema nel caricamento. Ricarica la pagina; se persiste, controlla l\'URL del foglio.</div></div>';
+    }
+  }
+})();
 </script>
 </body>
 </html>
