@@ -66,8 +66,8 @@
   .xgrid th,.xgrid td{border:1px solid var(--line);padding:0;text-align:center}
   .xgrid .fam-h{writing-mode:vertical-rl;transform:rotate(180deg);font-weight:800;color:#fff;font-size:12px;letter-spacing:.03em;padding:6px 3px;white-space:nowrap;min-width:26px}
   .xgrid .name-c{position:sticky;left:26px;background:#fff;text-align:left;padding:5px 10px;font-weight:600;white-space:nowrap;min-width:120px;z-index:2;border-left:0}
-  .xgrid .name-c.nofam{left:0}
   .xgrid .fam-cell{position:sticky;left:0;z-index:3}
+  .xgrid .single-cell{background:#7a8699}
   .xgrid thead th{background:var(--navy);color:#fff;font-weight:700;height:30px;min-width:24px;width:24px;font-size:11px}
   .xgrid thead th.we{background:var(--navy-3)}
   .xgrid thead .corner{position:sticky;left:0;z-index:4;background:var(--navy);min-width:146px;text-align:left;padding-left:10px;letter-spacing:.04em}
@@ -331,6 +331,13 @@ function allMembers(){return DATA.groups.flatMap(g=>g.members.map(m=>({...m,_gid
 function memberById(id){for(const g of DATA.groups){const m=g.members.find(x=>x.id===id);if(m)return m;}return null;}
 function groupById(id){return DATA.groups.find(g=>g.id===id);}
 function displayName(m){return m.soprannome?m.soprannome:(m.nome+(m.cognome?" "+m.cognome:""));}
+function fullName(m){
+  const base=[m.nome,m.cognome].filter(Boolean).join(" ").trim();
+  if(base && m.soprannome) return `${base} "${m.soprannome}"`;
+  if(base) return base;
+  if(m.soprannome) return m.soprannome;
+  return "—";
+}
 function parseD(s){if(!s)return null;const[y,mo,d]=s.split("-").map(Number);return new Date(y,mo-1,d);}
 function dayOf(s){if(!s)return null;const d=parseD(s);if(d.getFullYear()!==YEAR||d.getMonth()!==MONTH)return null;return d.getDate();}
 function isWE(day){const d=new Date(YEAR,MONTH,day);return d.getDay()===0||d.getDay()===6;}
@@ -460,8 +467,14 @@ function gridView(){
     const rows=g.members.length;
     g.members.forEach((m,i)=>{
       let r="";
-      if(i===0&&!g.single)r+=`<td class="fam-cell" rowspan="${rows}" style="background:${famColor(g.id)}"><div class="fam-h">${g.nome.replace(/^Famiglia\s+/i,'')}</div></td>`;
-      r+=`<td class="${g.single?'name-c nofam':'name-c'}">${displayName(m)}${g.single?'<span class="single-tag">singolo</span>':''}</td>`;
+      if(i===0){
+        if(g.single){
+          r+=`<td class="fam-cell single-cell" rowspan="${rows}"><div class="fam-h">Singolo</div></td>`;
+        }else{
+          r+=`<td class="fam-cell" rowspan="${rows}" style="background:${famColor(g.id)}"><div class="fam-h">${g.nome.replace(/^Famiglia\s+/i,'')}</div></td>`;
+        }
+      }
+      r+=`<td class="name-c">${fullName(m)}</td>`;
       for(let d=1;d<=DAYS_IN_MONTH;d++){const on=presentOn(m,d);r+=`<td class="${['day',on?'on':'off',isWE(d)?'we':''].join(' ')}"></td>`;}
       body+=`<tr>${r}</tr>`;
     });
