@@ -6,46 +6,35 @@
 <title>Chi c'è in baita</title>
 <style>
   :root{
-    --navy:#0a2240;        /* blu navy Goodyear/Cooper */
-    --navy-2:#16335c;
-    --navy-3:#22467a;
-    --gold:#ffc20e;        /* giallo Goodyear */
-    --gold-2:#e6a800;
-    --bg:#f5f7fa;
-    --surface:#ffffff;
-    --ink:#16202e;
-    --muted:#6b7787;
-    --line:#e2e8f0;
-    --line-2:#cdd7e3;
-    --ok:#1f9d6b;
-    --radius:10px;
-    --shadow:0 1px 2px rgba(10,34,64,.06),0 12px 28px -18px rgba(10,34,64,.35);
+    --navy:#0a2240;--navy-2:#16335c;--navy-3:#22467a;
+    --gold:#ffc20e;--gold-2:#e6a800;
+    --bg:#f5f7fa;--surface:#fff;--ink:#16202e;--muted:#6b7787;
+    --line:#e2e8f0;--line-2:#cdd7e3;
+    --present:#34c759;--present-dk:#248a3d;--absent:#dfe4ea;
+    --ok:#1f9d6b;--red:#e23b3b;
+    --radius:10px;--shadow:0 1px 2px rgba(10,34,64,.06),0 12px 28px -18px rgba(10,34,64,.35);
   }
   *{box-sizing:border-box}
   html,body{margin:0;padding:0}
-  body{
-    font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,system-ui,sans-serif;
-    background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.45;
-  }
-  .wrap{max-width:1120px;margin:0 auto;padding:0 16px 64px}
+  body{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,system-ui,sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.45}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 14px 64px}
 
   /* BANNER */
-  .banner{position:relative;width:100%;border-radius:0 0 14px 14px;overflow:hidden;background:var(--navy);min-height:150px;display:flex;align-items:flex-end;box-shadow:var(--shadow)}
+  .banner{position:relative;width:100%;border-radius:0 0 14px 14px;overflow:hidden;background:var(--navy);min-height:140px;display:flex;align-items:flex-end;box-shadow:var(--shadow)}
   .banner img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-  .banner .overlay{position:relative;width:100%;padding:22px 24px;background:linear-gradient(transparent,rgba(10,34,64,.82));color:#fff;z-index:1}
+  .banner .overlay{position:relative;width:100%;padding:20px 22px;background:linear-gradient(transparent,rgba(10,34,64,.82));color:#fff;z-index:1}
   .banner.empty{background:linear-gradient(120deg,var(--navy),var(--navy-3))}
   .banner.empty:before{content:"";position:absolute;right:-40px;top:-40px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(255,194,14,.25),transparent 70%)}
   .eyebrow{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:800}
-  .banner h1{font-size:clamp(26px,4.5vw,40px);line-height:1.05;margin:.15em 0 .05em;font-weight:800;letter-spacing:-.02em}
+  .banner h1{font-size:clamp(24px,4.5vw,38px);line-height:1.05;margin:.15em 0 .05em;font-weight:800;letter-spacing:-.02em}
   .banner .sub{color:rgba(255,255,255,.82);font-size:14px;max-width:60ch;margin:0}
   .banner-actions{position:absolute;top:12px;right:12px;z-index:2;display:flex;gap:8px}
-  .chip{font-size:12px;font-weight:600;background:rgba(255,255,255,.92);color:var(--navy);border:0;border-radius:8px;padding:7px 11px;cursor:pointer;backdrop-filter:blur(4px)}
+  .chip{font-size:12px;font-weight:600;background:rgba(255,255,255,.92);color:var(--navy);border:0;border-radius:8px;padding:7px 11px;cursor:pointer}
   .chip:hover{background:#fff}
 
-  /* BAR */
-  .bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin:18px 0}
+  .bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin:16px 0}
   .seg{display:inline-flex;background:#fff;border:1px solid var(--line);border-radius:10px;padding:4px;box-shadow:var(--shadow)}
-  .seg button{border:0;background:transparent;padding:8px 18px;border-radius:7px;cursor:pointer;font-weight:600;font-size:14px;color:var(--navy);font-family:inherit}
+  .seg button{border:0;background:transparent;padding:8px 16px;border-radius:7px;cursor:pointer;font-weight:600;font-size:14px;color:var(--navy);font-family:inherit}
   .seg button.active{background:var(--navy);color:#fff}
   .right-tools{display:flex;gap:8px;flex-wrap:wrap}
   .btn{cursor:pointer;border-radius:8px;border:1px solid var(--line-2);background:#fff;color:var(--ink);padding:9px 14px;font-weight:600;font-size:14px;font-family:inherit;transition:.15s}
@@ -58,51 +47,55 @@
   .btn.tiny{padding:6px 10px;font-size:12px}
 
   .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
-  .card .pad{padding:18px}
+  .card .pad{padding:16px}
 
-  /* I AM */
   .iam{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
   .iam label{font-weight:700;color:var(--navy);font-size:14px}
-  select,input[type=text],input[type=date]{font-family:inherit;font-size:14px;padding:9px 11px;border:1px solid var(--line-2);border-radius:8px;background:#fff;color:var(--ink)}
+  select,input[type=text],input[type=date]{font-family:inherit;font-size:14px;padding:10px 12px;border:1px solid var(--line-2);border-radius:8px;background:#fff;color:var(--ink)}
   select:focus,input:focus{outline:2px solid var(--gold);outline-offset:1px;border-color:var(--gold-2)}
 
-  .scope{display:inline-flex;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:3px;margin-top:12px}
-  .scope button{border:0;background:transparent;padding:7px 14px;border-radius:6px;cursor:pointer;font-weight:600;font-size:13px;color:var(--muted);font-family:inherit}
+  .scope{display:inline-flex;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:3px;margin-top:12px;flex-wrap:wrap}
+  .scope button{border:0;background:transparent;padding:8px 14px;border-radius:6px;cursor:pointer;font-weight:600;font-size:13px;color:var(--muted);font-family:inherit}
   .scope button.active{background:var(--navy);color:#fff}
 
-  .legend{font-size:12px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap;margin:14px 2px 12px}
-  .legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+  /* GRID (Excel-like) */
+  .legend{font-size:12px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap;margin:14px 2px 10px;align-items:center}
+  .legend i{display:inline-block;width:13px;height:13px;border-radius:3px;margin-right:5px;vertical-align:-2px}
+  .grid-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .xgrid{border-collapse:collapse;font-size:12px;min-width:max-content}
+  .xgrid th,.xgrid td{border:1px solid var(--line);padding:0;text-align:center}
+  .xgrid .fam-h{writing-mode:vertical-rl;transform:rotate(180deg);font-weight:800;color:#fff;font-size:12px;letter-spacing:.03em;padding:6px 3px;white-space:nowrap;min-width:26px}
+  .xgrid .name-c{position:sticky;left:26px;background:#fff;text-align:left;padding:5px 10px;font-weight:600;white-space:nowrap;min-width:120px;z-index:2;border-left:0}
+  .xgrid .name-c.nofam{left:0}
+  .xgrid .fam-cell{position:sticky;left:0;z-index:3}
+  .xgrid thead th{background:var(--navy);color:#fff;font-weight:700;height:30px;min-width:24px;width:24px;font-size:11px}
+  .xgrid thead th.we{background:var(--navy-3)}
+  .xgrid thead .corner{position:sticky;left:0;z-index:4;background:var(--navy);min-width:146px;text-align:left;padding-left:10px;letter-spacing:.04em}
+  .xgrid td.day{width:24px;height:26px}
+  .xgrid td.on{background:var(--present)}
+  .xgrid td.off{background:var(--absent)}
+  .xgrid td.we.off{background:#cfd6df}
+  .xgrid .clou{border-left:2px solid var(--red)}
+  .xgrid .clou-r{border-right:2px solid var(--red)}
+  .hist-row td{height:46px;vertical-align:bottom;padding:0;border:1px solid var(--line);position:relative}
+  .hist-bar{background:linear-gradient(var(--gold),var(--gold-2));width:100%;position:absolute;bottom:0;left:0;border-radius:2px 2px 0 0}
+  .hist-num{position:absolute;top:1px;left:0;right:0;font-size:9px;color:var(--navy);font-weight:700}
+  .hist-label{position:sticky;left:0;background:#fff;text-align:right;padding-right:8px;font-size:10px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.04em;z-index:2}
 
-  /* TIMELINE */
-  .tl-scroll{overflow-x:auto}
-  .tl{min-width:720px}
-  .tl-head{display:grid;grid-template-columns:210px 1fr}
-  .tl-daycol{font-size:11px;text-align:center;color:var(--muted);padding:4px 0;border-left:1px solid var(--line)}
-  .tl-daycol.we{background:rgba(10,34,64,.05)}
-  .tl-daycol .dnum{font-weight:700;color:var(--navy);font-size:13px}
-  .grouprow{font-weight:800;letter-spacing:.02em;color:#fff;background:var(--navy);padding:8px 12px;border-radius:8px;margin:14px 0 4px;font-size:13px;display:flex;justify-content:space-between;align-items:center}
-  .grouprow small{font-weight:600;color:var(--gold);font-size:11px}
-  .tl-row{display:grid;grid-template-columns:210px 1fr;align-items:center;border-bottom:1px solid var(--line);min-height:42px}
-  .tl-name{font-size:14px;padding:6px 10px 6px 14px;display:flex;flex-direction:column;justify-content:center}
-  .tl-name b{font-weight:600}
-  .tl-name small{color:var(--muted);font-size:11px}
-  .tl-track{position:relative;height:100%}
-  .tl-grid{position:absolute;inset:0;display:grid}
-  .tl-cell{border-left:1px solid var(--line)}
-  .tl-cell.we{background:rgba(10,34,64,.04)}
-  .tl-bar{position:absolute;top:50%;transform:translateY(-50%);height:24px;border-radius:6px;display:flex;align-items:center;padding:0 9px;color:#fff;font-size:11px;font-weight:600;white-space:nowrap;box-shadow:0 2px 5px -1px rgba(0,0,0,.3)}
-  .tl-empty{position:absolute;top:50%;transform:translateY(-50%);font-size:11px;color:var(--muted);font-style:italic;padding-left:9px}
+  .peak{display:flex;align-items:center;gap:10px;background:linear-gradient(120deg,var(--navy),var(--navy-3));color:#fff;border-radius:10px;padding:12px 16px;margin:14px 0;font-size:14px}
+  .peak b{color:var(--gold)}
+  .peak .big{font-size:22px;font-weight:800;color:var(--gold)}
 
   /* CALENDAR */
   .cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
   .cal-head h3{color:var(--navy);margin:0;font-size:18px;text-transform:capitalize}
   .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
   .cal-dow{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);text-align:center;padding:4px 0;font-weight:700}
-  .cal-cell{min-height:96px;border:1px solid var(--line);border-radius:8px;padding:6px;background:#fff;position:relative}
+  .cal-cell{min-height:92px;border:1px solid var(--line);border-radius:8px;padding:6px;background:#fff;position:relative}
   .cal-cell.out{background:var(--bg);opacity:.45}
   .cal-cell.we{background:rgba(10,34,64,.03)}
   .cal-cell .d{font-size:12px;font-weight:700;color:var(--navy)}
-  .pres{display:block;font-size:10.5px;border-radius:4px;padding:1px 5px;margin-top:3px;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .pres{display:block;font-size:10.5px;border-radius:4px;padding:1px 5px;margin-top:3px;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;background:var(--present-dk)}
   .countpill{position:absolute;top:6px;right:6px;font-size:10px;background:var(--gold);color:var(--navy);border-radius:999px;padding:1px 7px;font-weight:800}
 
   .panel{margin-top:14px;border-top:1px solid var(--line);padding-top:16px}
@@ -112,14 +105,21 @@
   .row-actions{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
   .hint{font-size:12px;color:var(--muted)}
   .memberpick{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
-  .memberpick label{display:inline-flex;align-items:center;gap:7px;background:var(--bg);border:1px solid var(--line-2);border-radius:8px;padding:8px 12px;cursor:pointer;font-size:13px;font-weight:600}
-  .memberpick input{accent-color:var(--navy)}
+  .memberpick label{display:inline-flex;align-items:center;gap:7px;background:var(--bg);border:1px solid var(--line-2);border-radius:8px;padding:9px 13px;cursor:pointer;font-size:14px;font-weight:600}
+  .memberpick input{accent-color:var(--navy);width:18px;height:18px}
 
-  table{width:100%;border-collapse:collapse;font-size:13px}
-  th,td{text-align:left;padding:8px;border-bottom:1px solid var(--line)}
-  th{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.05em}
-  td input,td select{width:100%;font-size:13px;padding:6px 8px}
+  table.adm{width:100%;border-collapse:collapse;font-size:13px}
+  table.adm th,table.adm td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--line)}
+  table.adm th{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.05em}
+  table.adm td input,table.adm td select{width:100%;font-size:13px;padding:6px 8px}
   .status{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px}
+  .drag-handle{cursor:grab;color:var(--muted);font-size:16px;padding:0 4px;user-select:none}
+  .fam-block{border:1px solid var(--line);border-radius:10px;margin-top:14px;overflow:hidden}
+  .fam-head{display:flex;justify-content:space-between;align-items:center;background:var(--navy);color:#fff;padding:8px 12px;font-weight:800}
+  .fam-head input{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);color:#fff;font:inherit;font-weight:800;border-radius:6px;padding:4px 8px;width:50%}
+  .fam-head.dragover{outline:2px dashed var(--gold)}
+  tr.dragover td{border-top:2px solid var(--gold)}
+  .single-tag{font-size:10px;background:var(--gold);color:var(--navy);border-radius:5px;padding:1px 6px;font-weight:800;margin-left:6px;text-transform:uppercase}
 
   .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;font-size:14px;font-weight:600;padding:11px 20px;border-radius:9px;box-shadow:0 10px 30px -10px rgba(0,0,0,.4);opacity:0;pointer-events:none;transition:.25s;z-index:50}
   .toast.show{opacity:1}
@@ -128,11 +128,19 @@
   .modal{background:#fff;border-radius:var(--radius);max-width:420px;width:100%;padding:22px}
   .modal h3{color:var(--navy);margin:.2em 0 .6em}
   .loading{padding:60px;text-align:center;color:var(--muted)}
+  .save-indicator{font-size:12px;color:var(--ok);font-weight:600}
+
   @media(max-width:640px){
-    .tl-row,.tl-head{grid-template-columns:120px 1fr}
-    .tl-name{padding-left:8px}
+    .wrap{padding:0 10px 56px}
     .grid3{grid-template-columns:1fr}
-    .cal-cell{min-height:72px}
+    .cal-cell{min-height:66px}
+    .seg button{padding:8px 12px;font-size:13px}
+    .iam{gap:8px}
+    .iam select,#pickGroup,#pickMember{flex:1;min-width:0}
+    .scope{width:100%}
+    .scope button{flex:1}
+    .btn{padding:11px 14px}
+    .field input{font-size:16px} /* evita zoom iOS */
   }
 </style>
 </head>
@@ -148,7 +156,7 @@
 <div class="modal-bg" id="adminModal">
   <div class="modal">
     <h3>Modalità organizzatore</h3>
-    <p class="hint" style="margin-top:0">Inserisci il codice per gestire l'elenco, aggiungere famiglie o correggere le date di chiunque.</p>
+    <p class="hint" style="margin-top:0">Inserisci il codice per gestire l'elenco e l'ordine, o correggere le date di chiunque.</p>
     <input type="text" id="adminPass" placeholder="Codice organizzatore" style="width:100%;margin:10px 0">
     <div class="row-actions">
       <button class="btn primary" onclick="tryAdmin()">Entra</button>
@@ -159,131 +167,112 @@
 
 <script>
 // ============== CONFIG ==============
-const ADMIN_CODE = "baita2026";
-const STORAGE_KEY = "baita_presenze_v2";
-const BANNER_KEY  = "baita_banner_v2";
-const DEFAULT_MONTH = {year:2026, month:7}; // agosto 2026 (mese 0-based)
+const ADMIN_CODE="baita2026";
+const STORAGE_KEY="baita_presenze_v3";
+const BANNER_KEY="baita_banner_v3";
+const YEAR=2026, MONTH=7;            // agosto 2026 (0-based)
+const DAYS_IN_MONTH=new Date(YEAR,MONTH+1,0).getDate(); // 31
 
-const DEFAULT_DATA = {
-  meta:{ titolo:"Ferie in baita 2026", sub:"Scegli il tuo nome, segna arrivo e partenza. Tutti vedono lo stesso calendario." },
+const DEFAULT_DATA={
+  meta:{titolo:"Ferie in baita 2026", sub:"Scegli il tuo nome, segna arrivo e partenza. Tutti vedete lo stesso calendario.", clou:[13,20]},
   groups:[
-    { id:"g1", nome:"Famiglia Rosa", members:[
-      {id:"m1", nome:"Michele", cognome:"Rosa", soprannome:"", arrivo:"", partenza:"", casa:""},
-      {id:"m2", nome:"Sara", cognome:"Rosa", soprannome:"", arrivo:"", partenza:"", casa:""},
-      {id:"m3", nome:"Edoardo", cognome:"Rosa", soprannome:"Edo", arrivo:"", partenza:"", casa:""},
+    {id:"g1",nome:"Famiglia Rosa",single:false,members:[
+      {id:"m1",nome:"Michele",cognome:"Rosa",soprannome:"",arrivo:"",partenza:"",casa:""},
+      {id:"m2",nome:"Sara",cognome:"Rosa",soprannome:"",arrivo:"",partenza:"",casa:""},
+      {id:"m3",nome:"Edoardo",cognome:"Rosa",soprannome:"Edo",arrivo:"",partenza:"",casa:""},
     ]},
-    { id:"g2", nome:"Famiglia Pisano", members:[
-      {id:"m4", nome:"Giacomo", cognome:"Pisano", soprannome:"", arrivo:"", partenza:"", casa:""},
-      {id:"m5", nome:"Serena", cognome:"Pisano", soprannome:"", arrivo:"", partenza:"", casa:""},
-      {id:"m6", nome:"Aurora", cognome:"Pisano", soprannome:"", arrivo:"", partenza:"", casa:""},
+    {id:"g2",nome:"Famiglia Pisano",single:false,members:[
+      {id:"m4",nome:"Giacomo",cognome:"Pisano",soprannome:"",arrivo:"",partenza:"",casa:""},
+      {id:"m5",nome:"Serena",cognome:"Pisano",soprannome:"",arrivo:"",partenza:"",casa:""},
+      {id:"m6",nome:"Aurora",cognome:"Pisano",soprannome:"",arrivo:"",partenza:"",casa:""},
     ]},
   ]
 };
 
-const COLORS = ["#0a2240","#e6a800","#22467a","#1f9d6b","#b1571f","#7a4fb8","#0e7490","#a8546b","#3f6f3f","#9c6b3f"];
-
 // ============== STATE ==============
-let DATA=null, BANNER=null, isAdmin=false;
-let currentView="timeline", selectedScope="famiglia", selectedGroup=null, selectedMember=null;
+let DATA=null,BANNER=null,isAdmin=false;
+let currentView="griglia",selectedScope="famiglia",selectedGroup=null,selectedMember=null;
 let checkedMembers=new Set();
 let calOffset=0;
 
 // ============== STORAGE ==============
 async function load(){
-  try{ const r=await window.storage.get(STORAGE_KEY,true); if(r&&r.value){DATA=JSON.parse(r.value);} }catch(e){}
-  if(!DATA){ DATA=structuredClone(DEFAULT_DATA); await saveData(true); }
-  try{ const b=await window.storage.get(BANNER_KEY,true); if(b&&b.value){BANNER=b.value;} }catch(e){}
+  try{const r=await window.storage.get(STORAGE_KEY,true);if(r&&r.value)DATA=JSON.parse(r.value);}catch(e){}
+  if(!DATA){DATA=structuredClone(DEFAULT_DATA);await saveData(true);}
+  if(!DATA.meta.clou)DATA.meta.clou=[];
+  try{const b=await window.storage.get(BANNER_KEY,true);if(b&&b.value)BANNER=b.value;}catch(e){}
 }
-async function saveData(silent){ try{ await window.storage.set(STORAGE_KEY,JSON.stringify(DATA),true); if(!silent)toast("Salvato ✓"); }catch(e){toast("Errore salvataggio");} }
-async function saveBanner(){ try{ await window.storage.set(BANNER_KEY,BANNER,true); }catch(e){toast("Banner troppo grande");} }
+async function saveData(silent){try{await window.storage.set(STORAGE_KEY,JSON.stringify(DATA),true);if(!silent)flashSaved();}catch(e){toast("Errore salvataggio");}}
+async function saveBanner(){try{await window.storage.set(BANNER_KEY,BANNER,true);}catch(e){toast("Banner troppo grande");}}
 
 // ============== HELPERS ==============
-function allMembers(){ return DATA.groups.flatMap(g=>g.members.map(m=>({...m,_gid:g.id,_gname:g.nome}))); }
-function memberById(id){ for(const g of DATA.groups){const m=g.members.find(x=>x.id===id);if(m)return m;} return null; }
-function groupById(id){ return DATA.groups.find(g=>g.id===id); }
-function colorFor(id){ const ids=allMembers().map(m=>m.id); return COLORS[ids.indexOf(id)%COLORS.length]; }
-function displayName(m){ return m.soprannome?m.soprannome:(m.nome+" "+m.cognome); }
-function parseD(s){ if(!s)return null; const[y,mo,d]=s.split("-").map(Number); return new Date(y,mo-1,d); }
-function fmtShort(d){ return d.toLocaleDateString("it-IT",{day:"2-digit",month:"short"}); }
-function daysBetween(a,b){ return Math.round((b-a)/86400000); }
-function toast(msg){ const t=document.getElementById("toast"); t.textContent=msg; t.classList.add("show"); setTimeout(()=>t.classList.remove("show"),1900); }
+function allMembers(){return DATA.groups.flatMap(g=>g.members.map(m=>({...m,_gid:g.id,_gname:g.nome,_single:g.single})));}
+function memberById(id){for(const g of DATA.groups){const m=g.members.find(x=>x.id===id);if(m)return m;}return null;}
+function groupById(id){return DATA.groups.find(g=>g.id===id);}
+function displayName(m){return m.soprannome?m.soprannome:(m.nome+(m.cognome?" "+m.cognome:""));}
+function dayOf(s){if(!s)return null;const d=parseD(s);if(d.getFullYear()!==YEAR||d.getMonth()!==MONTH)return null;return d.getDate();}
+function parseD(s){if(!s)return null;const[y,mo,d]=s.split("-").map(Number);return new Date(y,mo-1,d);}
+function isWE(day){const d=new Date(YEAR,MONTH,day);return d.getDay()===0||d.getDay()===6;}
+function presentOn(m,day){const a=dayOf(m.arrivo),p=dayOf(m.partenza);if(a==null||p==null)return false;return day>=a&&day<=p;}
+function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),1900);}
+function flashSaved(){const el=document.getElementById("saveInd");if(el){el.textContent="✓ salvato";setTimeout(()=>{if(el)el.textContent="";},1500);}else toast("Salvato ✓");}
 
-function globalRange(){
-  const ms=allMembers().filter(m=>m.arrivo&&m.partenza);
-  if(!ms.length){ const t=new Date(DEFAULT_MONTH.year,DEFAULT_MONTH.month,1); const e=new Date(DEFAULT_MONTH.year,DEFAULT_MONTH.month,31); return [t,e]; }
-  let min=parseD(ms[0].arrivo),max=parseD(ms[0].partenza);
-  ms.forEach(m=>{const a=parseD(m.arrivo),p=parseD(m.partenza);if(a<min)min=a;if(p>max)max=p;});
-  min=new Date(min);min.setDate(min.getDate()-1);
-  max=new Date(max);max.setDate(max.getDate()+1);
-  return[min,max];
-}
+// presenze per giorno
+function dailyCounts(){const c=[];for(let d=1;d<=DAYS_IN_MONTH;d++){c[d]=allMembers().filter(m=>presentOn(m,d)).length;}return c;}
+function peakInfo(){const c=dailyCounts();let max=0;for(let d=1;d<=DAYS_IN_MONTH;d++)if(c[d]>max)max=c[d];
+  if(max===0)return null;
+  let start=null,ranges=[];
+  for(let d=1;d<=DAYS_IN_MONTH;d++){if(c[d]===max&&start===null)start=d;if((c[d]!==max||d===DAYS_IN_MONTH)&&start!==null){const end=(c[d]===max)?d:d-1;ranges.push([start,end]);start=null;}}
+  return {max,ranges};}
 
 // ============== RENDER ==============
 function render(){
   renderBanner();
-  const app=document.getElementById("app");
-  app.className="";
+  const app=document.getElementById("app");app.className="";
   app.innerHTML=topBar()+(currentView==="admin"?"":iamCard())+viewBody();
   attachHandlers();
 }
-
 function renderBanner(){
   const w=document.getElementById("bannerWrap");
-  const adminBtns = `<div class="banner-actions">
-      ${BANNER?`<button class="chip" onclick="removeBanner()">Rimuovi foto</button>`:''}
-      <button class="chip" onclick="document.getElementById('bannerFile').click()">${BANNER?'Cambia foto':'Carica foto'}</button>
-    </div>`;
-  w.innerHTML=`
-    <div class="banner ${BANNER?'':'empty'}">
-      ${BANNER?`<img src="${BANNER}" alt="banner">`:''}
-      <div class="overlay">
-        <div class="eyebrow">Ferie in montagna · presenze</div>
-        <h1>${DATA.meta.titolo}</h1>
-        <p class="sub">${DATA.meta.sub}</p>
-      </div>
-      ${isAdmin?adminBtns:''}
-    </div>`;
+  const adminBtns=`<div class="banner-actions">${BANNER?`<button class="chip" onclick="removeBanner()">Rimuovi foto</button>`:''}<button class="chip" onclick="document.getElementById('bannerFile').click()">${BANNER?'Cambia foto':'Carica foto'}</button></div>`;
+  w.innerHTML=`<div class="banner ${BANNER?'':'empty'}">${BANNER?`<img src="${BANNER}" alt="banner">`:''}
+    <div class="overlay"><div class="eyebrow">Ferie in montagna · presenze</div><h1>${DATA.meta.titolo}</h1><p class="sub">${DATA.meta.sub}</p></div>
+    ${isAdmin?adminBtns:''}</div>`;
 }
-
 function topBar(){
   return `<div class="bar">
     <div class="seg">
-      <button class="${currentView==='timeline'?'active':''}" data-view="timeline">Timeline</button>
+      <button class="${currentView==='griglia'?'active':''}" data-view="griglia">Griglia</button>
       <button class="${currentView==='calendar'?'active':''}" data-view="calendar">Calendario</button>
       ${isAdmin?`<button class="${currentView==='admin'?'active':''}" data-view="admin">Gestione</button>`:''}
     </div>
     <div class="right-tools">
+      ${isAdmin?`<span id="saveInd" class="save-indicator"></span>`:''}
       <button class="btn ghost tiny" onclick="exportCSV()">Esporta CSV</button>
-      ${isAdmin?`<button class="btn ghost tiny" onclick="logoutAdmin()">Esci organizzatore</button>`
-                :`<button class="btn ghost tiny" onclick="openAdmin()">Organizzatore</button>`}
+      ${isAdmin?`<button class="btn ghost tiny" onclick="logoutAdmin()">Esci</button>`:`<button class="btn ghost tiny" onclick="openAdmin()">Organizzatore</button>`}
     </div>
   </div>`;
 }
 
+/* ---------- USER INPUT CARD ---------- */
 function iamCard(){
   const gopts=DATA.groups.map(g=>`<option value="${g.id}" ${selectedGroup===g.id?'selected':''}>${g.nome}</option>`).join("");
   return `<div class="card"><div class="pad">
-    <div class="iam">
-      <label>La mia famiglia / gruppo</label>
-      <select id="pickGroup"><option value="">— scegli —</option>${gopts}</select>
-    </div>
+    <div class="iam"><label>La mia famiglia / gruppo</label>
+      <select id="pickGroup"><option value="">— scegli —</option>${gopts}</select></div>
     ${selectedGroup?scopeAndPanel():'<p class="hint" style="margin:12px 0 0">Seleziona il tuo gruppo per inserire le date.</p>'}
   </div></div>`;
 }
-
 function scopeAndPanel(){
-  const g=groupById(selectedGroup); if(!g) return "";
-  return `
-    <div class="scope">
+  const g=groupById(selectedGroup);if(!g)return"";
+  if(g.single||g.members.length===1){selectedMember=g.members[0]?.id||null;return singleOnly(g);}
+  return `<div class="scope">
       <button class="${selectedScope==='famiglia'?'active':''}" onclick="setScope('famiglia')">Stesse date per più persone</button>
       <button class="${selectedScope==='singolo'?'active':''}" onclick="setScope('singolo')">Una persona alla volta</button>
-    </div>
-    ${selectedScope==='famiglia'?familyPanel(g):singlePanel(g)}`;
+    </div>${selectedScope==='famiglia'?familyPanel(g):singlePanel(g)}`;
 }
-
 function familyPanel(g){
-  const checks=g.members.map(m=>`
-    <label><input type="checkbox" class="mchk" value="${m.id}" ${checkedMembers.has(m.id)?'checked':''}> ${displayName(m)}</label>`).join("");
+  const checks=g.members.map(m=>`<label><input type="checkbox" class="mchk" value="${m.id}" ${checkedMembers.has(m.id)?'checked':''}> ${displayName(m)}</label>`).join("");
   return `<div class="panel">
     <p class="hint" style="margin-top:0">Spunta chi fa le <b>stesse date</b>, poi inseriscile una volta sola.</p>
     <div class="memberpick">${checks}</div>
@@ -292,144 +281,180 @@ function familyPanel(g){
       <div class="field"><label>Partenza</label><input type="date" id="f_partenza" min="2026-08-01" max="2026-08-31"></div>
       <div class="field"><label>Dove dormite</label><input type="text" id="f_casa" placeholder="es. Chalet Larici"></div>
     </div>
-    <div class="row-actions">
-      <button class="btn primary" onclick="saveFamily()">Applica alle persone spuntate</button>
-    </div>
+    <div class="row-actions"><button class="btn primary" onclick="saveFamily()">Applica alle persone spuntate</button></div>
   </div>`;
 }
-
 function singlePanel(g){
   const opts=g.members.map(m=>`<option value="${m.id}" ${selectedMember===m.id?'selected':''}>${displayName(m)}</option>`).join("");
   const m=selectedMember?memberById(selectedMember):null;
   return `<div class="panel">
-    <div class="iam" style="margin-bottom:6px">
-      <label>Persona</label>
-      <select id="pickMember"><option value="">— scegli —</option>${opts}</select>
-    </div>
-    ${m?`<div class="grid3">
+    <div class="iam" style="margin-bottom:6px"><label>Persona</label>
+      <select id="pickMember"><option value="">— scegli —</option>${opts}</select></div>
+    ${m?dateFields(m):'<p class="hint">Scegli la persona da compilare.</p>'}
+  </div>`;
+}
+function singleOnly(g){const m=g.members[0];if(!m)return"";return `<div class="panel">${dateFields(m)}</div>`;}
+function dateFields(m){
+  return `<div class="grid3">
       <div class="field"><label>Arrivo</label><input type="date" id="s_arrivo" value="${m.arrivo||''}" min="2026-08-01" max="2026-08-31"></div>
       <div class="field"><label>Partenza</label><input type="date" id="s_partenza" value="${m.partenza||''}" min="2026-08-01" max="2026-08-31"></div>
       <div class="field"><label>Dove dorme</label><input type="text" id="s_casa" value="${m.casa||''}" placeholder="es. Chalet Larici"></div>
     </div>
-    <div class="row-actions">
-      <button class="btn primary" onclick="saveSingle()">Salva</button>
-      <button class="btn ghost" onclick="clearSingle()">Cancella le sue date</button>
-    </div>`:'<p class="hint">Scegli la persona da compilare.</p>'}
-  </div>`;
+    <div class="row-actions"><button class="btn primary" onclick="saveSingle()">Salva</button>
+    <button class="btn ghost" onclick="clearSingle()">Cancella le sue date</button></div>`;
 }
 
 function viewBody(){
-  if(currentView==="timeline") return timelineView();
-  if(currentView==="calendar") return calendarView();
-  if(currentView==="admin") return adminView();
+  if(currentView==="griglia")return gridView();
+  if(currentView==="calendar")return calendarView();
+  if(currentView==="admin")return adminView();
 }
 
-/* TIMELINE */
-function timelineView(){
-  const[start,end]=globalRange();
-  const n=daysBetween(start,end)+1;
-  const days=[...Array(n)].map((_,i)=>{const d=new Date(start);d.setDate(d.getDate()+i);return d;});
-  const dayHead=days.map(d=>{const we=(d.getDay()===0||d.getDay()===6);
-    return `<div class="tl-daycol ${we?'we':''}"><div class="dnum">${d.getDate()}</div>${d.toLocaleDateString("it-IT",{weekday:"narrow"})}</div>`;}).join("");
-  let rows="";
-  for(const g of DATA.groups){
-    const present=g.members.filter(m=>m.arrivo&&m.partenza).length;
-    rows+=`<div class="grouprow"><span>${g.nome}</span><small>${present}/${g.members.length} con date</small></div>`;
-    for(const m of g.members){
-      rows+=`<div class="tl-row">
-        <div class="tl-name"><b>${displayName(m)}</b>${m.casa?`<small>🏠 ${m.casa}</small>`:''}</div>
-        <div class="tl-track">
-          <div class="tl-grid" style="grid-template-columns:repeat(${n},1fr)">
-            ${days.map(d=>`<div class="tl-cell ${(d.getDay()===0||d.getDay()===6)?'we':''}"></div>`).join("")}
-          </div>${barFor(m,start,n)}
-        </div></div>`;
-    }
+/* ---------- GRID (Excel-like) ---------- */
+function gridView(){
+  const counts=dailyCounts();
+  const maxCount=Math.max(1,...counts.slice(1));
+  const clou=DATA.meta.clou||[];
+
+  // header giorni
+  let head=`<th class="corner">NOME</th>`;
+  for(let d=1;d<=DAYS_IN_MONTH;d++){
+    const cls=[isWE(d)?'we':'',clou.includes(d)?'clou':''].join(' ');
+    head+=`<th class="${cls}">${d}</th>`;
   }
-  return `<div class="legend">
-      <span><i style="background:var(--navy)"></i>presenza in baita</span>
-      <span><i style="background:rgba(10,34,64,.1)"></i>weekend</span>
+
+  // istogramma
+  let hist=`<td class="hist-label">presenze →</td>`;
+  for(let d=1;d<=DAYS_IN_MONTH;d++){
+    const h=Math.round((counts[d]/maxCount)*40);
+    const cls=clou.includes(d)?'clou':'';
+    hist+=`<td class="${cls}"><div class="hist-num">${counts[d]||''}</div><div class="hist-bar" style="height:${h}px"></div></td>`;
+  }
+
+  // righe per gruppo
+  let body="";
+  for(const g of DATA.groups){
+    const rows=g.members.length;
+    g.members.forEach((m,i)=>{
+      let r="";
+      if(i===0&&!g.single){
+        r+=`<td class="fam-cell" rowspan="${rows}" style="background:${famColor(g.id)}"><div class="fam-h">${g.nome.replace(/^Famiglia\s+/i,'')}</div></td>`;
+      }
+      const nameClass=g.single?'name-c nofam':'name-c';
+      r+=`<td class="${nameClass}">${displayName(m)}${g.single?'<span class="single-tag">singolo</span>':''}</td>`;
+      for(let d=1;d<=DAYS_IN_MONTH;d++){
+        const on=presentOn(m,d);
+        const cls=['day',on?'on':'off',isWE(d)?'we':'',clou.includes(d)?'clou':''].join(' ');
+        r+=`<td class="${cls}"></td>`;
+      }
+      body+=`<tr>${g.single&&i===0?'':''}${r}</tr>`;
+    });
+  }
+
+  // peak banner
+  const pk=peakInfo();
+  let peakHtml="";
+  if(pk){
+    const txt=pk.ranges.map(([a,b])=>a===b?`il ${a}`:`dal ${a} al ${b}`).join(", ");
+    peakHtml=`<div class="peak"><span class="big">${pk.max}</span><span>persone insieme — il picco è <b>${txt} agosto</b></span></div>`;
+  }
+
+  return `${peakHtml}
+    <div class="legend">
+      <span><i style="background:var(--present)"></i>presente</span>
+      <span><i style="background:var(--absent)"></i>assente</span>
+      <span><i style="background:var(--navy-3)"></i>weekend</span>
+      <span><i style="background:var(--red);width:3px;border-radius:0"></i>giorno clou</span>
       <span class="hint">scorri lateralmente →</span>
     </div>
-    <div class="card"><div class="pad tl-scroll"><div class="tl">
-      <div class="tl-head"><div></div><div style="display:grid;grid-template-columns:repeat(${n},1fr)">${dayHead}</div></div>
-      ${rows}
-    </div></div></div>`;
+    <div class="card"><div class="pad grid-scroll">
+      <table class="xgrid">
+        <thead><tr>${head}</tr></thead>
+        <tbody>
+          <tr class="hist-row">${hist}</tr>
+          ${body}
+        </tbody>
+      </table>
+    </div></div>`;
 }
-function barFor(m,start,n){
-  if(!m.arrivo||!m.partenza) return `<div class="tl-empty">— date non inserite —</div>`;
-  const a=parseD(m.arrivo),p=parseD(m.partenza);
-  let off=daysBetween(start,a),len=daysBetween(a,p)+1;
-  if(off<0){len+=off;off=0;}
-  if(off>=n)return "";
-  if(off+len>n)len=n-off;
-  const left=(off/n)*100,width=(len/n)*100,c=colorFor(m.id);
-  return `<div class="tl-bar" style="left:${left}%;width:${width}%;background:${c}" title="${displayName(m)}: ${fmtShort(a)} → ${fmtShort(p)}">${fmtShort(a)} → ${fmtShort(p)}</div>`;
-}
+function famColor(gid){const i=DATA.groups.findIndex(g=>g.id===gid);const cols=["#0a2240","#22467a","#1f6f5c","#8a5a2b","#6b3fa0","#0e6e8c","#9c2b4e","#3f6f2f"];return cols[i%cols.length];}
 
-/* CALENDAR */
+/* ---------- CALENDAR ---------- */
 function calendarView(){
-  const base=new Date(DEFAULT_MONTH.year,DEFAULT_MONTH.month+calOffset,1);
-  const year=base.getFullYear(),month=base.getMonth();
-  const first=new Date(year,month,1);
-  const startDow=(first.getDay()+6)%7;
-  const dim=new Date(year,month+1,0).getDate();
-  const cells=[];
-  for(let i=0;i<startDow;i++)cells.push(null);
-  for(let d=1;d<=dim;d++)cells.push(new Date(year,month,d));
+  const base=new Date(YEAR,MONTH+calOffset,1);
+  const y=base.getFullYear(),mo=base.getMonth();
+  const first=new Date(y,mo,1);const startDow=(first.getDay()+6)%7;
+  const dim=new Date(y,mo+1,0).getDate();
+  const cells=[];for(let i=0;i<startDow;i++)cells.push(null);
+  for(let d=1;d<=dim;d++)cells.push(new Date(y,mo,d));
   while(cells.length%7!==0)cells.push(null);
   const dow=["Lun","Mar","Mer","Gio","Ven","Sab","Dom"].map(x=>`<div class="cal-dow">${x}</div>`).join("");
-  const ms=allMembers().filter(m=>m.arrivo&&m.partenza);
+  const ms=allMembers();
   const cellsHtml=cells.map(d=>{
     if(!d)return `<div class="cal-cell out"></div>`;
     const we=(d.getDay()===0||d.getDay()===6);
-    const here=ms.filter(m=>{const a=parseD(m.arrivo),p=parseD(m.partenza);return d>=a&&d<=p;});
-    const pres=here.slice(0,3).map(m=>`<span class="pres" style="background:${colorFor(m.id)}">${displayName(m)}</span>`).join("");
+    const sameMonth=(d.getMonth()===MONTH&&d.getFullYear()===YEAR);
+    const here=sameMonth?ms.filter(m=>presentOn(m,d.getDate())):[];
+    const pres=here.slice(0,3).map(m=>`<span class="pres">${displayName(m)}</span>`).join("");
     const more=here.length>3?`<span class="pres" style="background:var(--muted)">+${here.length-3} altri</span>`:"";
     return `<div class="cal-cell ${we?'we':''}"><span class="d">${d.getDate()}</span>${here.length?`<span class="countpill">${here.length}</span>`:""}${pres}${more}</div>`;
   }).join("");
   return `<div class="card"><div class="pad">
-    <div class="cal-head">
-      <button class="btn tiny" onclick="calNav(-1)">‹ Prec.</button>
+    <div class="cal-head"><button class="btn tiny" onclick="calNav(-1)">‹ Prec.</button>
       <h3>${base.toLocaleDateString("it-IT",{month:"long",year:"numeric"})}</h3>
-      <button class="btn tiny" onclick="calNav(1)">Succ. ›</button>
-    </div>
+      <button class="btn tiny" onclick="calNav(1)">Succ. ›</button></div>
     <div class="cal-grid">${dow}${cellsHtml}</div>
   </div></div>`;
 }
 
-/* ADMIN */
+/* ---------- ADMIN ---------- */
 function adminView(){
-  let html="";
-  DATA.groups.forEach(g=>{
-    const rows=g.members.map(m=>`<tr data-id="${m.id}">
+  let blocks="";
+  DATA.groups.forEach((g,gi)=>{
+    const rows=g.members.map(m=>`<tr draggable="true" data-mid="${m.id}" data-gid="${g.id}" class="adm-row">
+      <td><span class="drag-handle" title="trascina">⠿</span></td>
       <td><span class="status" style="background:${m.arrivo&&m.partenza?'var(--ok)':'var(--gold-2)'}"></span></td>
-      <td><input value="${m.nome}" data-f="nome"></td>
-      <td><input value="${m.cognome}" data-f="cognome"></td>
-      <td><input value="${m.soprannome||''}" data-f="soprannome"></td>
-      <td><input type="date" value="${m.arrivo||''}" data-f="arrivo"></td>
-      <td><input type="date" value="${m.partenza||''}" data-f="partenza"></td>
-      <td><input value="${m.casa||''}" data-f="casa"></td>
-      <td><button class="btn tiny ghost" onclick="removeMember('${g.id}','${m.id}')">✕</button></td></tr>`).join("");
-    html+=`<div class="grouprow" style="margin-top:18px">
-        <input value="${g.nome}" onchange="renameGroup('${g.id}',this.value)" style="background:transparent;border:0;font:inherit;color:#fff;width:55%">
-        <span><button class="btn tiny gold" onclick="addMember('${g.id}')">+ persona</button>
+      <td><input value="${m.nome}" data-f="nome" onchange="liveEdit('${m.id}','nome',this.value)"></td>
+      <td><input value="${m.cognome}" data-f="cognome" onchange="liveEdit('${m.id}','cognome',this.value)"></td>
+      <td><input value="${m.soprannome||''}" data-f="soprannome" onchange="liveEdit('${m.id}','soprannome',this.value)"></td>
+      <td><input type="date" value="${m.arrivo||''}" min="2026-08-01" max="2026-08-31" data-f="arrivo" onchange="liveEdit('${m.id}','arrivo',this.value)"></td>
+      <td><input type="date" value="${m.partenza||''}" min="2026-08-01" max="2026-08-31" data-f="partenza" onchange="liveEdit('${m.id}','partenza',this.value)"></td>
+      <td><input value="${m.casa||''}" data-f="casa" onchange="liveEdit('${m.id}','casa',this.value)"></td>
+      <td style="white-space:nowrap">
+        <button class="btn tiny ghost" title="azzera solo le date" onclick="clearDates('${m.id}')">📅✕</button>
+        <button class="btn tiny ghost" title="elimina persona" onclick="removeMember('${g.id}','${m.id}')">🗑</button>
+      </td></tr>`).join("");
+    blocks+=`<div class="fam-block" data-gid="${g.id}" draggable="true">
+      <div class="fam-head" data-gid="${g.id}">
+        <span><span class="drag-handle" title="trascina gruppo">⠿</span>
+        <input value="${g.nome}" onchange="renameGroup('${g.id}',this.value)">
+        ${g.single?'<span class="single-tag">singolo</span>':''}</span>
+        <span>${!g.single?`<button class="btn tiny gold" onclick="addMember('${g.id}')">+ persona</button>`:''}
         <button class="btn tiny ghost" style="color:#fff;border-color:rgba(255,255,255,.4)" onclick="removeGroup('${g.id}')">elimina</button></span>
       </div>
-      <div style="overflow-x:auto"><table>
-        <thead><tr><th></th><th>Nome</th><th>Cognome</th><th>Soprannome</th><th>Arrivo</th><th>Partenza</th><th>Casa</th><th></th></tr></thead>
-        <tbody>${rows}</tbody></table></div>`;
+      <div style="overflow-x:auto"><table class="adm">
+        <thead><tr><th></th><th></th><th>Nome</th><th>Cognome</th><th>Soprann.</th><th>Arrivo</th><th>Partenza</th><th>Casa</th><th></th></tr></thead>
+        <tbody>${rows}</tbody></table></div>
+    </div>`;
   });
+  const clouVal=(DATA.meta.clou||[]).join(", ");
   return `<div class="card"><div class="pad">
-    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
-      <div class="field" style="min-width:240px"><label>Titolo mostrato nel banner</label><input id="adm_titolo" value="${DATA.meta.titolo}"></div>
-      <div class="right-tools">
-        <button class="btn" onclick="addGroup()">+ Nuova famiglia</button>
-        <button class="btn primary" onclick="saveAdmin()">Salva tutto</button>
-      </div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:12px">
+      <div class="field" style="flex:1;min-width:220px"><label>Titolo nel banner</label><input id="adm_titolo" value="${DATA.meta.titolo}" onchange="liveMetaTitolo(this.value)"></div>
+      <div class="field" style="flex:2;min-width:240px"><label>Sottotitolo</label><input id="adm_sub" value="${DATA.meta.sub}" onchange="liveMetaSub(this.value)"></div>
+      <div class="field" style="min-width:160px"><label>Giorni clou (linea rossa)</label><input id="adm_clou" value="${clouVal}" placeholder="es. 13, 20" onchange="liveClou(this.value)"></div>
     </div>
-    <div class="field" style="margin-top:12px"><label>Sottotitolo</label><input id="adm_sub" value="${DATA.meta.sub}"></div>
-    ${html}
-    <div class="row-actions" style="margin-top:20px"><button class="btn ghost tiny" onclick="resetAll()">Azzera tutte le date (mantieni persone)</button></div>
+    <div class="row-actions" style="margin-top:14px">
+      <button class="btn gold" onclick="addGroup(false)">+ Nuova famiglia</button>
+      <button class="btn" onclick="addGroup(true)">+ Persona singola</button>
+      <span class="hint" style="align-self:center">Le modifiche si salvano da sole. Trascina ⠿ per riordinare.</span>
+    </div>
+    ${blocks}
+    <div class="row-actions" style="margin-top:18px;border-top:1px solid var(--line);padding-top:16px">
+      <button class="btn gold" onclick="addGroup(false)">+ Nuova famiglia</button>
+      <button class="btn" onclick="addGroup(true)">+ Persona singola</button>
+      <button class="btn ghost tiny" onclick="resetAll()">Azzera tutte le date</button>
+    </div>
   </div></div>`;
 }
 
@@ -441,70 +466,106 @@ function attachHandlers(){
   const pm=document.getElementById("pickMember");
   if(pm)pm.onchange=()=>{selectedMember=pm.value||null;render();};
   document.querySelectorAll(".mchk").forEach(c=>c.onchange=()=>{c.checked?checkedMembers.add(c.value):checkedMembers.delete(c.value);});
+  if(currentView==="admin")setupDnD();
 }
 function setScope(s){selectedScope=s;render();}
 
+/* ----- user saves ----- */
 function saveFamily(){
-  const a=document.getElementById("f_arrivo").value;
-  const p=document.getElementById("f_partenza").value;
-  const casa=document.getElementById("f_casa").value.trim();
+  const a=document.getElementById("f_arrivo").value,p=document.getElementById("f_partenza").value,casa=document.getElementById("f_casa").value.trim();
   if(!checkedMembers.size){toast("Spunta almeno una persona");return;}
   if(a&&p&&parseD(p)<parseD(a)){toast("La partenza è prima dell'arrivo!");return;}
   checkedMembers.forEach(id=>{const m=memberById(id);if(m){m.arrivo=a;m.partenza=p;m.casa=casa;}});
-  saveData();render();
+  saveData();toast("Date applicate ✓");render();
 }
 function saveSingle(){
   const m=memberById(selectedMember);if(!m)return;
-  const a=document.getElementById("s_arrivo").value;
-  const p=document.getElementById("s_partenza").value;
+  const a=document.getElementById("s_arrivo").value,p=document.getElementById("s_partenza").value;
   if(a&&p&&parseD(p)<parseD(a)){toast("La partenza è prima dell'arrivo!");return;}
   m.arrivo=a;m.partenza=p;m.casa=document.getElementById("s_casa").value.trim();
-  saveData();render();
+  saveData();toast("Salvato ✓");render();
 }
 function clearSingle(){const m=memberById(selectedMember);if(!m)return;m.arrivo="";m.partenza="";m.casa="";saveData();render();}
 function calNav(d){calOffset+=d;render();}
 
-function saveAdmin(){
-  DATA.meta.titolo=document.getElementById("adm_titolo").value.trim()||DATA.meta.titolo;
-  DATA.meta.sub=document.getElementById("adm_sub").value.trim();
-  document.querySelectorAll("#app tbody tr").forEach(tr=>{const m=memberById(tr.dataset.id);if(!m)return;
-    tr.querySelectorAll("[data-f]").forEach(inp=>{m[inp.dataset.f]=inp.value.trim?inp.value.trim():inp.value;});});
-  saveData();toast("Tutto salvato ✓");render();
-}
+/* ----- admin live edits (autosave) ----- */
+function liveEdit(id,f,v){const m=memberById(id);if(!m)return;if((f==='arrivo'||f==='partenza')){const a=f==='arrivo'?v:m.arrivo,p=f==='partenza'?v:m.partenza;if(a&&p&&parseD(p)<parseD(a)){toast("Partenza prima dell'arrivo");}}m[f]=v.trim?v.trim():v;saveData();}
+function liveMetaTitolo(v){DATA.meta.titolo=v.trim()||DATA.meta.titolo;saveData();renderBanner();}
+function liveMetaSub(v){DATA.meta.sub=v.trim();saveData();renderBanner();}
+function liveClou(v){DATA.meta.clou=v.split(",").map(x=>parseInt(x.trim())).filter(n=>n>=1&&n<=DAYS_IN_MONTH);saveData();}
+function clearDates(id){const m=memberById(id);if(!m)return;m.arrivo="";m.partenza="";m.casa="";saveData();render();}
 function addMember(gid){groupById(gid).members.push({id:"m"+Date.now(),nome:"Nuovo",cognome:"",soprannome:"",arrivo:"",partenza:"",casa:""});saveData(true);render();}
-function removeMember(gid,mid){const g=groupById(gid);g.members=g.members.filter(m=>m.id!==mid);saveData(true);render();}
-function addGroup(){DATA.groups.push({id:"g"+Date.now(),nome:"Nuova famiglia",members:[]});saveData(true);render();}
+function removeMember(gid,mid){const g=groupById(gid);g.members=g.members.filter(m=>m.id!==mid);if(g.single&&g.members.length===0){DATA.groups=DATA.groups.filter(x=>x.id!==gid);}saveData(true);render();}
+function addGroup(single){
+  const id="g"+Date.now();
+  if(single){DATA.groups.push({id,nome:"Nuova persona",single:true,members:[{id:"m"+Date.now(),nome:"Nuovo",cognome:"",soprannome:"",arrivo:"",partenza:"",casa:""}]});}
+  else{DATA.groups.push({id,nome:"Nuova famiglia",single:false,members:[]});}
+  saveData(true);render();
+}
 function removeGroup(gid){if(!confirm("Eliminare il gruppo e tutte le sue persone?"))return;DATA.groups=DATA.groups.filter(g=>g.id!==gid);saveData(true);render();}
-function renameGroup(gid,v){groupById(gid).nome=v;saveData(true);}
+function renameGroup(gid,v){groupById(gid).nome=v.trim()||groupById(gid).nome;saveData();renderBanner();}
 function resetAll(){if(!confirm("Azzerare le date di tutti?"))return;DATA.groups.forEach(g=>g.members.forEach(m=>{m.arrivo="";m.partenza="";m.casa="";}));saveData();render();}
 
+/* ----- drag & drop (admin, desktop) ----- */
+let dragType=null,dragGid=null,dragMid=null;
+function setupDnD(){
+  // gruppi
+  document.querySelectorAll(".fam-block").forEach(b=>{
+    b.addEventListener("dragstart",e=>{if(dragType==='row')return;dragType='group';dragGid=b.dataset.gid;e.stopPropagation();});
+    b.addEventListener("dragover",e=>{if(dragType==='group'){e.preventDefault();b.querySelector(".fam-head").classList.add("dragover");}});
+    b.addEventListener("dragleave",e=>{b.querySelector(".fam-head")?.classList.remove("dragover");});
+    b.addEventListener("drop",e=>{if(dragType==='group'){e.preventDefault();dropGroup(b.dataset.gid);}b.querySelector(".fam-head")?.classList.remove("dragover");});
+  });
+  // righe
+  document.querySelectorAll(".adm-row").forEach(r=>{
+    r.addEventListener("dragstart",e=>{dragType='row';dragGid=r.dataset.gid;dragMid=r.dataset.mid;e.stopPropagation();});
+    r.addEventListener("dragover",e=>{if(dragType==='row'&&r.dataset.gid===dragGid){e.preventDefault();r.classList.add("dragover");}});
+    r.addEventListener("dragleave",e=>{r.classList.remove("dragover");});
+    r.addEventListener("drop",e=>{if(dragType==='row'){e.preventDefault();dropRow(r.dataset.gid,r.dataset.mid);}r.classList.remove("dragover");});
+    r.addEventListener("dragend",()=>{dragType=null;});
+  });
+}
+function dropGroup(targetGid){
+  if(dragGid===targetGid){dragType=null;return;}
+  const from=DATA.groups.findIndex(g=>g.id===dragGid);
+  const to=DATA.groups.findIndex(g=>g.id===targetGid);
+  const[moved]=DATA.groups.splice(from,1);DATA.groups.splice(to,0,moved);
+  dragType=null;saveData(true);render();
+}
+function dropRow(targetGid,targetMid){
+  if(dragGid!==targetGid){dragType=null;return;}
+  const g=groupById(targetGid);
+  const from=g.members.findIndex(m=>m.id===dragMid);
+  const to=g.members.findIndex(m=>m.id===targetMid);
+  if(from<0||to<0||from===to){dragType=null;return;}
+  const[moved]=g.members.splice(from,1);g.members.splice(to,0,moved);
+  dragType=null;saveData(true);render();
+}
+
+/* ----- admin auth ----- */
 function openAdmin(){document.getElementById("adminModal").classList.add("show");}
 function closeAdmin(){document.getElementById("adminModal").classList.remove("show");document.getElementById("adminPass").value="";}
 function tryAdmin(){if(document.getElementById("adminPass").value===ADMIN_CODE){isAdmin=true;currentView="admin";closeAdmin();render();toast("Modalità organizzatore attiva");}else toast("Codice errato");}
-function logoutAdmin(){isAdmin=false;currentView="timeline";render();}
+function logoutAdmin(){isAdmin=false;currentView="griglia";render();}
 
-// banner upload
+/* ----- banner ----- */
 document.getElementById("bannerFile").addEventListener("change",function(e){
   const file=e.target.files[0];if(!file)return;
-  const img=new Image();const reader=new FileReader();
-  reader.onload=ev=>{
-    img.onload=()=>{
-      // ridimensiona per non superare i limiti di storage
-      const maxW=1400;const scale=Math.min(1,maxW/img.width);
-      const c=document.createElement("canvas");c.width=img.width*scale;c.height=img.height*scale;
-      c.getContext("2d").drawImage(img,0,0,c.width,c.height);
-      BANNER=c.toDataURL("image/jpeg",0.82);
-      saveBanner();renderBanner();toast("Banner aggiornato ✓");
-    };
-    img.src=ev.target.result;
-  };
+  const img=new Image(),reader=new FileReader();
+  reader.onload=ev=>{img.onload=()=>{
+    const maxW=1400,scale=Math.min(1,maxW/img.width);
+    const c=document.createElement("canvas");c.width=img.width*scale;c.height=img.height*scale;
+    c.getContext("2d").drawImage(img,0,0,c.width,c.height);
+    BANNER=c.toDataURL("image/jpeg",0.82);saveBanner();renderBanner();toast("Banner aggiornato ✓");
+  };img.src=ev.target.result;};
   reader.readAsDataURL(file);
 });
 function removeBanner(){BANNER=null;try{window.storage.delete(BANNER_KEY,true);}catch(e){}renderBanner();}
 
+/* ----- export ----- */
 function exportCSV(){
-  const rows=[["Gruppo","Nome","Cognome","Soprannome","Arrivo","Partenza","Casa"]];
-  DATA.groups.forEach(g=>g.members.forEach(m=>rows.push([g.nome,m.nome,m.cognome,m.soprannome,m.arrivo,m.partenza,m.casa])));
+  const rows=[["Gruppo","Tipo","Nome","Cognome","Soprannome","Arrivo","Partenza","Casa"]];
+  DATA.groups.forEach(g=>g.members.forEach(m=>rows.push([g.nome,g.single?"singolo":"famiglia",m.nome,m.cognome,m.soprannome,m.arrivo,m.partenza,m.casa])));
   const csv=rows.map(r=>r.map(c=>`"${(c||'').replace(/"/g,'""')}"`).join(",")).join("\n");
   const blob=new Blob(["\ufeff"+csv],{type:"text/csv;charset=utf-8"});
   const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="presenze-baita.csv";a.click();
