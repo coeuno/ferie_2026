@@ -75,6 +75,13 @@
   .xgrid td.on{background:var(--present)}
   .xgrid td.off{background:var(--absent)}
   .xgrid td.we.off{background:#cfd6df}
+  /* bordo perimetrale attorno a ogni gruppo */
+  .xgrid .grp-first td{border-top:2px solid var(--navy)}
+  .xgrid .grp-first .fam-cell{border-top:2px solid var(--navy)}
+  .xgrid .grp-last td{border-bottom:2px solid var(--navy)}
+  .xgrid .grp-left{border-left:2px solid var(--navy)}
+  .xgrid .name-c{border-right:1px solid var(--line)}
+  .xgrid td.grp-right{border-right:2px solid var(--navy)}
   .hist-row td{height:38px;vertical-align:bottom;padding:0;border:1px solid var(--line);position:relative}
   .hist-bar{background:linear-gradient(var(--gold),var(--gold-2));width:100%;position:absolute;bottom:0;left:0;border-radius:2px 2px 0 0}
   .hist-num{position:absolute;top:1px;left:0;right:0;font-size:9px;color:var(--navy);font-weight:700}
@@ -466,17 +473,23 @@ function gridView(){
   for(const g of DATA.groups){
     const rows=g.members.length;
     g.members.forEach((m,i)=>{
+      const first=(i===0), last=(i===rows-1);
+      const trCls=['grp-row',first?'grp-first':'',last?'grp-last':''].join(' ').trim();
       let r="";
       if(i===0){
         if(g.single){
-          r+=`<td class="fam-cell single-cell" rowspan="${rows}"><div class="fam-h">Singolo</div></td>`;
+          r+=`<td class="fam-cell single-cell grp-left" rowspan="${rows}"><div class="fam-h">Singolo</div></td>`;
         }else{
-          r+=`<td class="fam-cell" rowspan="${rows}" style="background:${famColor(g.id)}"><div class="fam-h">${g.nome.replace(/^Famiglia\s+/i,'')}</div></td>`;
+          r+=`<td class="fam-cell grp-left" rowspan="${rows}" style="background:${famColor(g.id)}"><div class="fam-h">${g.nome.replace(/^Famiglia\s+/i,'')}</div></td>`;
         }
       }
       r+=`<td class="name-c">${fullName(m)}</td>`;
-      for(let d=1;d<=DAYS_IN_MONTH;d++){const on=presentOn(m,d);r+=`<td class="${['day',on?'on':'off',isWE(d)?'we':''].join(' ')}"></td>`;}
-      body+=`<tr>${r}</tr>`;
+      for(let d=1;d<=DAYS_IN_MONTH;d++){
+        const on=presentOn(m,d);
+        const isLastDay=(d===DAYS_IN_MONTH);
+        r+=`<td class="${['day',on?'on':'off',isWE(d)?'we':'',isLastDay?'grp-right':''].join(' ')}"></td>`;
+      }
+      body+=`<tr class="${trCls}">${r}</tr>`;
     });
   }
 
